@@ -1,54 +1,28 @@
+# Neon Palms Cover Studio v2
+
 [![make.fun](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01)
-[![Rank](https://make.fun/badge/gta6-cover-art-01/herlienn/gta6-cover-art-entry/rank.svg)](https://make.fun/bounty/gta6-cover-art-01)
-[![Reward](https://make.fun/badge/gta6-cover-art-01/herlienn/gta6-cover-art-entry/reward.svg)](https://make.fun/bounty/gta6-cover-art-01)
+[![rank](https://make.fun/badge/gta6-cover-art-01/herlienn/gta6-cover-art-entry/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard)
+[![reward](https://make.fun/badge/gta6-cover-art-01/herlienn/gta6-cover-art-entry/reward.svg)](https://make.fun/bounty/gta6-cover-art-01)
 
-# Neon Palms Cover Studio
-
-A make.fun entry for [Make GTA 6 Cover Art](https://make.fun/bounty/gta6-cover-art-01):
-a web app that turns your photos and a caption into GTA-style poster cover art —
-multi-panel collages with slanted panels, a sunset/neon colour grade, painterly
-ink, and bold poster lettering — exported as a PNG to share.
+**Neon Palms Cover Studio v2** turns your photos into GTA 6-style poster key art — a make.fun entry for the [GTA 6 Cover Art bounty](https://make.fun/bounty/gta6-cover-art-01).
 
 ## What it does
 
-- **9 layouts** — Slash Trio, Key Art, Comic Strip, Neon Grid, Center Stage,
-  Sunset Split, Poster Stack, Diagonal Duo, Vice Columns. Every layout slices
-  the poster into slanted photo panels with the title over the art.
-- **7 colour grades** — Vice Sunset, Neon Nights, Golden Hour, Palm Noir,
-  Candy Pop, Retro VHS, Ocean Drive. All skin-safe: no hue rotation, saturation
-  capped, and the sunset wash is a soft-light overlay at low alpha, so skin
-  tones stay natural.
-- **Any photo** — load your own photos from your machine (never uploaded), fill
-  several panels with one photo or several, crop and position each panel with
-  sliders or by dragging the photo inside the preview, and edit the title and
-  kicker line. Panels wider than tall frame the top of the photo by default,
-  so faces stay in view instead of being cropped to the torso.
-- **Fast export** — one click exports a PNG in 1080 × 1080, 1080 × 1350 or
-  1920 × 1080.
-- **Live preview** — the editor shows the cover as you change it; click a panel
-  to select it for cropping.
+- **12 layouts** — slanted multi-panel collages, two pop-out hero layouts (one big hero close-up bursting out of the collage) and a 7-panel cast mosaic.
+- **Face-aware crop** — click any face in the preview to set that panel's focal point; panels dodge the title band, and wide panels anchor to the top of the photo so faces never get cut.
+- **Movie-poster chrome** — striped chrome title, round seal/stamp, name & role cast tags on every panel, a review strip and a billing block.
+- **9 skin-safe Vice City grades** — warm sunset light that keeps skin tones natural.
+- **6-step editor** with a live preview: photos → layout → grade → title & caption → poster chrome → export.
+- **PNG export in 3 sizes**: 1080 × 1080, 1080 × 1350, 1920 × 1080.
 
-## Originality
+## Try it
 
-Everything is original: no Rockstar Games logo, wordmark, official artwork,
-character, or font. The display typeface is **Anton** (Copyright 2020 The Anton
-Project Authors), shipped under the SIL Open Font License — see
-`app/fonts/OFL.txt`. The five sample photos under `app/samples/` were made with
-an image model for make.fun and are free to use.
+Serve `app/` with any static server and open `app/index.html` in desktop Chrome. Everything runs offline — every photo, font and script is a file under `app/`. The Anton font is under the SIL Open Font License (`app/fonts/OFL.txt`). No Rockstar logo, artwork or font is used anywhere.
 
-## Run it
-
-```sh
-node serve.ts
-# open http://localhost:8080
-```
-
-Static files only, no build step, no network requests. Handed in with:
+## Run the entry program
 
 ```sh
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-## License
-
-MIT — see `LICENSE`.
+`main.ts` copies `app/` and `screenshots/` to the output directory and writes `dossier.json` with the kit's vendored `buildDossier` library.
