@@ -3,105 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Neon Palms Cover Studio v2 — GTA 6 poster maker</title>
-<link rel="stylesheet" href="app.css">
+<title>Neon Palms Cover Studio v3</title>
+<link rel="stylesheet" href="./app.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="brand">
-    <span class="logo">NEON PALMS</span>
-    <span class="sub">Cover Studio v2 · your photos become Vice City key art</span>
+<div id="studio">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">NEON PALMS</span><span class="brand-sub">Cover Studio v3 — your photos become Vice City key art</span></div>
+    <div class="topcount" id="photoCount">6 photos loaded</div>
+  </header>
+  <div class="workbench">
+    <aside class="steps">
+      <section class="step" id="stepPhotos">
+        <h2><span class="num">1</span> Photos</h2>
+        <p>Pick samples, or add your own photos. Click a photo, then click a panel to place it.</p>
+        <div class="thumbs" id="thumbs"></div>
+        <label class="addphotos">+ Add your own photos<input id="fileInput" type="file" accept="image/*" multiple hidden></label>
+      </section>
+      <section class="step" id="stepLayout">
+        <h2><span class="num">2</span> Layout</h2>
+        <p>12 layouts — slanted collages, pop-out heroes and a 7-panel cast mosaic.</p>
+        <div class="layoutgrid" id="layoutGrid"></div>
+      </section>
+      <section class="step" id="stepGrade">
+        <h2><span class="num">3</span> Grade</h2>
+        <p>9 Vice City colour grades. Skin-safe: faces stay natural.</p>
+        <div class="gradegrid" id="gradeGrid"></div>
+      </section>
+      <section class="step" id="stepCaption">
+        <h2><span class="num">4</span> Caption</h2>
+        <label>Title <input id="titleInput" type="text" maxlength="24" value="NEON PALMS"></label>
+        <label>Subtitle <input id="subtitleInput" type="text" maxlength="48" value="ONE LAST JOB IN VICE CITY"></label>
+      </section>
+      <section class="step" id="stepSize">
+        <h2><span class="num">5</span> Size</h2>
+        <div class="sizegrid" id="sizeGrid"></div>
+      </section>
+      <section class="step" id="stepExport">
+        <h2><span class="num">6</span> Export</h2>
+        <button id="exportBtn" type="button">Export PNG</button>
+        <p id="exportStatus" role="status"></p>
+      </section>
+    </aside>
+    <main class="stage">
+      <canvas id="cover" width="1080" height="1080" aria-label="Cover preview"></canvas>
+      <div class="stageline"><span id="stageInfo">1080 × 1080 · layout: Hero Pop-Out</span><span class="facehint">Face-aware crop: click a face in the preview to set that panel's focal point.</span></div>
+      <div class="facebar"><strong>Face-aware crop</strong><span id="faceInfo">Panel 1 of 3 · focal point 50% / 30% — panels dodge the title band.</span><button id="resetFace" type="button">Reset to face</button></div>
+    </main>
   </div>
-  <div class="top-actions"><span id="photoCount">7 photos loaded</span></div>
-</header>
-
-<main class="studio">
-  <section class="controls" id="controls" aria-label="Editor controls">
-
-    <div class="step" id="step-photos">
-      <h2><span class="n">1</span> Photos</h2>
-      <p class="hint">Pick samples, or add your own photos. Click a photo, then click a panel to place it.</p>
-      <div class="sample-grid" id="sampleGrid"></div>
-      <label class="upload-btn">+ Add your own photos
-        <input type="file" id="uploadInput" accept="image/*" multiple hidden>
-      </label>
-    </div>
-
-    <div class="step" id="step-layout">
-      <h2><span class="n">2</span> Layout</h2>
-      <p class="hint">12 layouts — slanted collages, pop-out heroes and a 7-panel cast mosaic.</p>
-      <div class="layout-grid" id="layoutGrid"></div>
-    </div>
-
-    <div class="step" id="step-grade">
-      <h2><span class="n">3</span> Grade</h2>
-      <p class="hint">Skin-safe Vice City grades — warm light, natural skin, neon nights.</p>
-      <div class="grade-grid" id="gradeGrid"></div>
-    </div>
-
-    <div class="step" id="step-title">
-      <h2><span class="n">4</span> Title &amp; caption</h2>
-      <label class="field">Cover title
-        <input type="text" id="titleInput" value="NEON PALMS" maxlength="24">
-      </label>
-      <label class="field">Caption / tagline
-        <input type="text" id="captionInput" value="ONE LAST JOB IN VICE CITY" maxlength="48">
-      </label>
-      <label class="field">Preview size
-        <select id="sizeSelect">
-          <option value="1080x1080" selected>Square · 1080 × 1080</option>
-          <option value="1080x1350">Portrait · 1080 × 1350</option>
-          <option value="1920x1080">Wide · 1920 × 1080</option>
-        </select>
-      </label>
-    </div>
-
-    <div class="step" id="step-chrome">
-      <h2><span class="n">5</span> Poster chrome</h2>
-      <p class="hint">Movie-poster extras — the seal, billing block, cast tags and review strip.</p>
-      <label class="check"><input type="checkbox" id="chromeTitle" checked> Striped chrome title</label>
-      <label class="check"><input type="checkbox" id="sealToggle" checked> Round seal / stamp</label>
-      <label class="check"><input type="checkbox" id="tagsToggle" checked> Name &amp; role tags on panels</label>
-      <label class="check"><input type="checkbox" id="reviewToggle" checked> Review strip</label>
-      <label class="check"><input type="checkbox" id="billingToggle" checked> Billing block</label>
-      <label class="field">Seal text
-        <input type="text" id="sealInput" value="VICE CITY" maxlength="16">
-      </label>
-      <label class="field">Selected panel tag
-        <input type="text" id="tagInput" value="" maxlength="28" placeholder="Pick a panel to edit its tag">
-      </label>
-    </div>
-
-    <div class="step" id="step-export">
-      <h2><span class="n">6</span> Export PNG</h2>
-      <p class="hint">Three post sizes, one click each. The PNG is drawn fresh at full size.</p>
-      <div class="export-row">
-        <button class="export-btn" data-export="1080x1080">1080 × 1080</button>
-        <button class="export-btn" data-export="1080x1350">1080 × 1350</button>
-        <button class="export-btn" data-export="1920x1080">1920 × 1080</button>
-      </div>
-      <p class="export-note" id="exportNote">Ready.</p>
-    </div>
-
-  </section>
-
-  <section class="stage" id="stage">
-    <div class="canvas-wrap">
-      <canvas id="cover" width="1080" height="1080"></canvas>
-    </div>
-    <div class="stage-bar">
-      <span id="sizeLabel">1080 × 1080 · layout: Hero Pop-Out</span>
-      <span class="face-hint">Face-aware crop: click a face in the preview to set that panel's focal point.</span>
-    </div>
-    <div class="face-panel" id="facePanel">
-      <strong>Face-aware crop</strong>
-      <span id="faceInfo">Panel 1 · focal point 50% / 15% — panels dodge the title band.</span>
-      <button id="faceReset" type="button">Reset to face</button>
-    </div>
-  </section>
-</main>
-
-<footer class="foot">Neon Palms Cover Studio v2 — an original poster maker. No Rockstar logo, artwork or font. Anton is under the SIL Open Font License (see app/fonts/OFL.txt).</footer>
-<script src="app.js"></script>
+</div>
+<div id="coverOnly"><canvas id="coverSolo" width="1080" height="1080" aria-label="Cover"></canvas></div>
+<script src="./app.js"></script>
 </body>
 </html>
